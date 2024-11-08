@@ -21,6 +21,7 @@ class LinearScale extends ContinuousScale<num> {
     List<num>? ticks,
     int? tickCount,
     bool? niceRange,
+    num? minimumRange,
   }) : super(
           min: min,
           max: max,
@@ -31,6 +32,7 @@ class LinearScale extends ContinuousScale<num> {
           ticks: ticks,
           tickCount: tickCount,
           niceRange: niceRange,
+          minimumRange: minimumRange,
         );
 
   @override
@@ -61,7 +63,8 @@ class LinearScaleConv extends ContinuousScaleConv<num> {
 
       // If all data are the same, the range is 10, to get a nice margin 1 and avoid
       // 0 problem.
-      final range = maxTmp == minTmp ? 10 : maxTmp - minTmp;
+      num range = maxTmp == minTmp ? 10 : maxTmp - minTmp;
+      range = math.max(range, spec.minimumRange ?? 0);
       final marginMin = range * (spec.marginMin ?? 0.1);
       final marginMax = range * (spec.marginMax ?? 0.1);
       min = spec.min ?? minTmp - marginMin;

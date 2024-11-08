@@ -13,6 +13,7 @@ abstract class ContinuousScale<V> extends Scale<V, double> {
     this.marginMin,
     this.marginMax,
     this.niceRange,
+    this.minimumRange,
     String? title,
     String? Function(V)? formatter,
     List<V>? ticks,
@@ -45,14 +46,11 @@ abstract class ContinuousScale<V> extends Scale<V, double> {
   /// Whether to extend the [min] and [max] to get nice round values.
   bool? niceRange;
 
+  num? minimumRange;
+
   @override
   bool operator ==(Object other) =>
-      other is ContinuousScale<V> &&
-      super == other &&
-      min == other.min &&
-      max == other.max &&
-      marginMin == other.marginMin &&
-      marginMax == other.marginMax;
+      other is ContinuousScale<V> && super == other && min == other.min && max == other.max && marginMin == other.marginMin && marginMax == other.marginMax;
 }
 
 /// The continuous scale converter.
@@ -70,9 +68,5 @@ abstract class ContinuousScaleConv<V> extends ScaleConv<V, double> {
   double denormalize(double normalValue) => normalValue;
 
   @override
-  bool operator ==(Object other) =>
-      other is ContinuousScaleConv<V> &&
-      super == other &&
-      min == other.min &&
-      max == other.max;
+  bool operator ==(Object other) => other is ContinuousScaleConv<V> && super == other && min == other.min && max == other.max;
 }
